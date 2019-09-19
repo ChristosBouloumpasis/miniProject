@@ -1,58 +1,6 @@
-#TASK
-# 1) As a user, I want to use a command-line application that will output a predefined list of the names of the people in my team as well as a
-# 2) list of the drinks that people in my team typically ask for, so that I can remember everybody’s names and see if all of the drinks are available to make.
-#    As a user, I want to invoke the application and get a list of the people in my team as well as the available drinks E.g. $ python3 app.py get-people
-# 3) As a user, I want a nicer, interactive menu to use the application, so that I don’t have to be remembering and typing out commands all the time
-# 4) As a user, I want to add new drinks and people to the app so that I can keep the app up-to-date, in case people leave or join the team, or new drinks are available
-# 5) As a user, I want to be able to store the favourite drink of everyone in my team, so I know what to get them when they ask for a drink.
-# 6) As a user, I want to be able to save all the drinks and people names I’ve entered in the app so that I don’t have to re-enter them every time I restart the app
-
-
 import os
 from rounds import Round
-
-def saveOrderFile(orders):
-    with open('orders.txt','w') as ordersfile:
-        for key, value in orders.items():
-            ordersfile.write(f"{key},{value}\n")
-            #Test
-
-
-
-##############################################################################
-###
-###
-##############################################################################
-def savePersonFile(person):
-    with open('people.txt','a') as peoplefile:
-        peoplefile.write(person + "\n")
-
-##############################################################################
-###
-###
-##############################################################################
-def saveDrinkFile(drink):
-    with open('drinks.txt','a') as drinksfile:
-        drinksfile.write(drink + "\n")
-
-##############################################################################
-###
-###
-##############################################################################
-def saveChoicesFile(choices):
-    with open('choices.txt','a') as choicesfile:
-        for key, value in choices:
-            choicesfile.write(key + ", " + value + "\n")
-
-##############################################################################
-###
-###
-##############################################################################
-def saveChoiceFile(choice):
-    with open('choices.txt','a') as choicesfile:
-        choicesfile.write(choice + "\n")
-
-
+from save_to_file import saveItemToFile, saveMultipleItemsToFile
 ##############################################################################
 ###
 ### Prints dictionary
@@ -105,7 +53,7 @@ def readPeopleFile():
 ###
 ##############################################################################
 def readDrinksFile():
-   with  open('drinks.txt','r') as drinks_file: #Use some memory managment
+   with  open('drinks.txt','r') as drinks_file:
     people = drinks_file.readlines()
     return people
 ##############################################################################
@@ -127,6 +75,7 @@ def printList(title, body):
 ###              Add People menu
 ##############################################################################
 def inputNewPeople(people):
+
     printList("People", people)
     newPeopleMenu = """
 Please enter a list of people, name by name
@@ -139,7 +88,7 @@ Please enter a list of people, name by name
     while continueInput.lower() == "y":
         ele = input("Enter the name here:")
         peopleList.append(ele)
-        savePersonFile(ele)
+        saveItemToFile("people",ele)
         continueInput = input("Do you want to enter another name? [Y/N]: ")
         print("The input was: " + continueInput)
 
@@ -185,11 +134,14 @@ Please enter a list of drinks, name by name
     while continueInput.lower() == "y":
         ele = input()
         drinksList.append(ele)
+        saveItemToFile("drinks",ele)
         continueInput = input("Do you want to enter another name? [Y/N]:")
 
 
     print("Your new list of people has been registered")
     return drinksList
+
+
 
 ##############################################################################
 ###      Create round menu
@@ -207,7 +159,7 @@ def createRound():
         continueInput = input("Do you want to enter another order? [Y/N]:")
 
     result = newround.getRound()
-    saveOrderFile(result["Round"])
+    saveMultipleItemsToFile("orders",result["Round"])
 
 
 
@@ -235,7 +187,7 @@ def acceptArguments(input):
     elif input == "5":
         choices = inputNewPeopleWithDrinks(listPeople)
         #Save people to file
-        saveChoicesFile(choices)
+        saveMultipleItemsToFile("choices",choices)
         return True
     elif input == "6":
         readChoicesFile()

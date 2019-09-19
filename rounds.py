@@ -17,6 +17,12 @@ class Round:
             "Round": self.orders
         }
 
+    def createNewperson(self,name):
+        self.orders[name] = "No Preference"
+
+    def returnRound(self):
+        return self.orders
+
     def getRoundStatus(self):
         return self.statusActive
 
