@@ -18,7 +18,7 @@ def printDict(title, body):
 
 def readOrdersFile():
     ordersDict = {}
-    with open('orders.txt','r') as orders_file:
+    with open("orders.txt","r") as orders_file:
         orders = orders_file.readlines()
     for order in orders:
         ordersArray = [x.strip() for x in order.split(',')]
