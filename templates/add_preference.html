@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% if currentPreferences %}
+        <table>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Drink Name</th>
+            <th>Description</th>
+          </tr>
+            {% for preference in currentPreferences %}
+          <tr>
+            <td>{{preference.first_name}}</td>
+            <td>{{preference.last_name}}</td>
+            <td>{{preference.name}}</td>
+            <td>{{preference.description}}</td>
+          </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+    <br>
+    {% if people %}
+    <form name="new_preference" method="POST">
+        <legend>Create a new preference</legend>
+        <label for="new_person">People:
+        <select name="new_person">
+            <option value="---" selected>select a person</option>
+            {% for person in people %}
+                <option value="{{person.email}}">{{person.first_name + ' ' + person.last_name}}</option>
+            {% endfor %}
+            <option value="New Person">Create New Person</option>
+        </select>
+        <label for="new_drink">Drink:
+        <select name="new_drink">
+            <option value="---" selected>select a drink</option>
+            {% for drink in drinks %}
+             <option value="{{drink.name}}">{{drink.name}}</option>
+            {% endfor %}
+            <option value="New Drink">Create New Drink</option>
+        </select>
+        <label for="description">Instructions</label>
+        <input id="description" type="text" name="description" />
+        <button type="submit">Submit!</button>
+    </form>
+    {% endif %}
+{% endblock %}

@@ -6,9 +6,14 @@ class Round:
         self.orders = {}
         self.creatorName = creatorsName
 
+    def inputPreference(self,preference):
+        self.orders[preference.getPerson()] = preference.getDrink()
 
-    def inputChoice(self,drink, name):
-        self.orders[name] = drink
+    def getRoundItems(self):
+        return self.orders
+
+    def getRoundStatus(self):
+        return self.statusActive
 
     def getRound(self):
 
@@ -16,14 +21,3 @@ class Round:
             "Creator": self.creatorName,
             "Round": self.orders
         }
-
-    def createNewperson(self,name):
-        self.orders[name] = "No Preference"
-
-    def returnRound(self):
-        return self.orders
-
-    def getRoundStatus(self):
-        return self.statusActive
-
-

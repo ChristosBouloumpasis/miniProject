@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+    {%if round_id%}
+    <h4>Round #{{round_id|string}}</h4>
+    {% endif %}
+    {%if creator_details%}
+    <p>Creator Name: {{creator_details.first_name + ' '+ creator_details.last_name}}</p>
+    {% endif %}
+
+
+    {% if round_items %}
+    <p>Current orders in the round</p>
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Drink Name</th>
+                <th>Description</th>
+              </tr>
+                {% for item in round_items %}
+              <tr>
+                <td>{{item.person_name}}</td>
+                <td>{{item.drink_name}}</td>
+                <td>{{item.description}}</td>
+              </tr>
+            {% endfor %}
+            </table>
+    {% endif %}
+
+<br>
+<br>
+
+ {% if preferences %}
+    <form name="new_preference" method="POST">
+        <legend>Add a new preference to the round</legend>
+        <label for="preferences">Preferences:
+        <select name="preferences">
+            <option value="---" selected>select a preference</option>
+            {% for preference in preferences %}
+                <option value="{{round_id|string +','+ preference.preference_id|string }}">{{preference.first_name + ' ' + preference.last_name + ' - '+preference.name+' - '+ preference.description}}</option>
+            {% endfor %}
+            <option value="New Person">Create New preference</option>
+        </select>
+        <button type="submit">Submit!</button>
+    </form>
+{% endif %}
+
+<input type="button" onclick="window.location='/print?round_id={{round_id}}';"  name="{{round_id}}" value="CLOSE/PRINT ROUND">
+
+{% endblock %}

@@ -1,0 +1,21 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - BrewIW</title>
+      {% else %}
+      <title>Welcome to BrewIW</title>
+      {% endif %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="topnav">
+          <a class="active" href="/index">Home</a>
+          <a href="/drinks">Drinks</a>
+          <a href="/people">People</a>
+          <a href="/preferences">Preferences</a>
+          <a href="/rounds">Rounds</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

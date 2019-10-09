@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+        {% if currentPeople %}
+            <table>
+              <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+              </tr>
+                {% for person in currentPeople %}
+              <tr>
+                <td>{{person.first_name}}</td>
+                <td>{{person.last_name}}</td>
+                <td>{{person.email}}</td>
+              </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+
+    <form id="add-drink-form"  name="inputForm" onsubmit="return validateInput()" method="post">
+        <legend>Please type a new person name below:</legend>
+        <label for="person-firstname">First Name:</label>
+        <input id="person-firstname" type="text" name="person-firstname" />
+        <label for="person-lastname">Last Name:</label>
+        <input id="person-lastname" type="text" name="person-lastname" />
+        <label for="person-email">Email:</label>
+        <input id="person-email" type="text" name="person-email" />
+        <input id="submit-btn" onclick="validateInput()" type="submit" value="Submit">
+    </form>
+     {% if responseMessage %}
+        <div class="responseMessage" style="color: green;">{{responseMessage}}</div>
+     {% endif %}
+
+{% endblock %}

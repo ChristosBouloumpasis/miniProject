@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4>Here is the order that you need to prepare!</h4>
+
+    {% if round_items %}
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Drink Name</th>
+                <th>Description</th>
+              </tr>
+                {% for item in round_items %}
+              <tr>
+                <td>{{item.person_name}}</td>
+                <td>{{item.drink_name}}</td>
+                <td>{{item.description}}</td>
+              </tr>
+            {% endfor %}
+            </table>
+    {% endif %}
+
+
+
+
+
+
+{% endblock %}

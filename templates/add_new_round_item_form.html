@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<form id="add-person-form"  name="inputForm" onsubmit="return validateInput()" method="post">
+    <legend>Add new person:</legend>
+    <br>
+    <label for="person-name">Person:</label>
+    <input id="person-name" type="text" name="person-name" />
+​
+    <label for="drink-name">Drink:</label>
+    <input id="drink-name" type="text" name="drink-name" />
+​
+    <input id="submit-btn" onclick="validateInput()" type="submit" value="Submit">
+</form>
+</body>
+</html>
+<script>
+  function validateInput(){
+       let personInput = document.forms["inputForm"]["person-name"].value;
+       let drinkInput = document.forms["inputForm"]["drink-name"].value;
+
+    if(personInput && drinkInput)
+    {
+
+        if(/^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test(personInput) && /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test(drinkInput)){
+            return true;
+        }
+        else{
+            alert("Your input was invalid, please do me a favour and type a valid input")
+            return false
+        }
+    }
+    else
+    {
+        alert("You need to type something in both input fields")
+        return false
+    }
+
+     console.log(personInput)
+     console.log(drinkInput)
+}
+</script>
+

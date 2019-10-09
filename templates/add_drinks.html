@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        {% if currentDrinks %}
+            <table>
+              <tr>
+                <th>Current Drinks</th>
+              </tr>
+                {% for drink in currentDrinks %}
+              <tr>
+                <td>{{drink}}</td>
+              </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+
+    <form id="add-drink-form"  name="inputForm" onsubmit="return validateInput()" method="post">
+        <legend>Please type a new drink name below:</legend>
+        <label for="drink-name">Drink:</label>
+        <input id="drink-name" type="text" name="drink-name" />
+        <input id="submit-btn" onclick="validateInput()" type="submit" value="Submit">
+    </form>
+     {% if responseMessage %}
+        <div class="responseMessage" style="color: green;">{{responseMessage}}</div>
+     {% endif %}
+
+{% endblock %}

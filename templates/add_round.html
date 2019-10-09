@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4>Rounds currently running</h4>
+    {% if activeRounds %}
+        {% for round in activeRounds %}
+            <input type="button" onclick="window.location='/round?round_id={{round.round_id}}&creator_email={{round.email}}';"  name="{{round.round_id}}" value="{{round.round_id|string +' '+ round.first_name}}">
+    {% endfor %}
+    {% endif %}
+<br>
+<br>
+<br>
+<br>
+{% if people %}
+<form name="new_round" method="POST">
+        <legend>Create a new round</legend>
+        <label for="creator">Creator:
+        <select name="creator">
+            <option value="---" selected>select a creator</option>
+            {% for person in people %}
+                <option value="{{person.email}}">{{person.first_name + ' ' + person.last_name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Create a new round!</button>
+    </form>
+{% endif %}
+{% endblock %}
